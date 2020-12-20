@@ -8,18 +8,36 @@
    </body>
   <script>
     $(document).ready(function() {
-       $('#retrieve').click(function(){
-           $.ajax({
-           url: "{{ url_for ('get_img') }}",
-           type: "GET",
-           success: function(response) {
-               $("#myimg").attr('src', '/static/' + response);
-          },
-          error: function(xhr) {
-            // error
-         }
-         });
-       });
+        $(document).keyup(function(e){
+			if (e.keyCode == 39) {
+				$.ajax({
+					url: "{{ url_for ('get_img') }}",
+					type: "GET",
+					success: function(response) {
+					   $("#myimg").attr('src', '/static/' + response);
+					},
+					error: function(xhr) {
+					// error
+					}
+				});
+			}
+        });
+
+		$(document).keyup(function(e) {
+			if (e.keyCode == 49) { // http://gcctech.org/csc/javascript/javascript_keycodes.htm 
+				var new_freq = 'foo';
+			} else {
+				var new_freq = 'bar';
+			}
+            $.ajax({ 
+                url: '/test', 
+                type: 'POST', 
+                data: new_freq,
+                success: function(response){ 
+                    $('#main').text(response) 
+                } 
+            });    
+		});
     });
   </script>
 </html>
