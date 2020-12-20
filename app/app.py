@@ -15,12 +15,13 @@ def annotate():
 def get_img():
     global cnt
     cnt += 1
-    return imgs[cnt]
+    if cnt >= len(imgs):
+        return 'finished'
+    return imgs[cnt-1]
 
-@app.route('/test',methods = ['POST'])
-def test1():
+@app.route('/status',methods = ['POST'])
+def set_status():
     new_freq = request.get_data()
-    print(new_freq)
     return 'success'
 
 if __name__ == '__main__':
