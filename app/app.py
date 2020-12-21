@@ -1,8 +1,17 @@
-from flask import Flask, render_template, request
 import random
 import os
 
+from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///annotations.db'
+db = SQLAlchemy(app)
+
+class Annotations(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(200), nullable=False)
+    annotation = db.Column(db.String(200), nullable=False)
 
 imgs = [f for f in os.listdir('static/') if f.endswith('jpg')]
 cnt = 0
