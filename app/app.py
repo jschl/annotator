@@ -30,7 +30,16 @@ def get_img():
 
 @app.route('/status',methods = ['POST'])
 def set_status():
-    new_freq = request.get_data()
+    status = ''
+    status = request.get_data()
+    if status != '':
+        anno = Annotations(filename=imgs[cnt], annotation=status)
+        try:
+            db.session.add(anno)
+            db.session.commit()
+            return 'success'
+        except:
+            return 'there was an error'
     return 'success'
 
 if __name__ == '__main__':
