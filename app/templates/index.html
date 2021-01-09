@@ -6,19 +6,15 @@
     
     <body>
         <div id='status'></div>
-
+        <button id='start' type='button'>start</button>
         <div id='imgdiv'>
             <img src="" id="myimg" />
         </div>
     </body>
 
     <script>
-        $(document).ready(function() {
-            
-            <!-- press right arrow key -->
-            $(document).keyup(function(e){
-                if (e.keyCode == 39) {
-                    $.ajax({
+        function ajaxEvent(){
+            $.ajax({
                         url: "{{ url_for ('get_img') }}",
                         type: "GET",
                         success: function(response) {
@@ -28,6 +24,19 @@
                         // error
                         }
                     });
+        }
+
+        $(document).ready(function() {
+            <!-- click on button -->
+            $("#start").click(function(e) {
+               $(e.target).remove();
+               ajaxEvent();
+            });
+
+            <!-- press right arrow key -->
+            $(document).keyup(function(e){
+                if (e.keyCode == 39) {
+                    ajaxEvent();
                     $('#status').text('') 
                 }
             });
