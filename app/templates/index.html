@@ -1,74 +1,78 @@
 <html>
-  <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<style>
-		#imgdiv {
-		   width: 480px;
-		   height: 480px;
-           top: 50%;
-           left: 50%;
-           right: 50%;
-           position:fixed;
-           transform: translate(-50%, -50%); 
-		}
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <style>
+            #imgdiv {
+                width: 480px;
+                height: 480px;
+                top: 50%;
+                left: 50%;
+                right: 50%;
+                position:fixed;
+                transform: translate(-50%, -50%); 
+            }
 
-        #status {
-            text-align: center;
-        }
+            #status {
+                text-align: center;
+            }
 
-		div img {
-		   display: block;
-		   width: 100%;
-		}
-	</style>
-  </head>
-   <body>
-	 <div id='status'></div>
-	<div id='imgdiv'>
-     <img src="" id="myimg" />
-	</div>
-   </body>
-  <script>
-    $(document).ready(function() {
-        $(document).keyup(function(e){
-			if (e.keyCode == 39) {
-				$.ajax({
-					url: "{{ url_for ('get_img') }}",
-					type: "GET",
-					success: function(response) {
-					   response != 'finished' ? $("#myimg").attr('src', '/static/' + response) : $("#status").text('finished')
-					},
-					error: function(xhr) {
-					// error
-					}
-				});
-				$('#status').text('') 
-			}
+            div img {
+                display: block;
+                width: 100%;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div id='status'></div>
+
+        <div id='imgdiv'>
+            <img src="" id="myimg" />
+        </div>
+    </body>
+
+    <script>
+        $(document).ready(function() {
+            $(document).keyup(function(e){
+                if (e.keyCode == 39) {
+                    $.ajax({
+                        url: "{{ url_for ('get_img') }}",
+                        type: "GET",
+                        success: function(response) {
+                        response != 'finished' ? $("#myimg").attr('src', '/static/' + response) : $("#status").text('finished')
+                        },
+                        error: function(xhr) {
+                        // error
+                        }
+                    });
+                    $('#status').text('') 
+                }
+            });
+
+            $(document).keyup(function(e) {
+                if (e.keyCode == 49) { // http://gcctech.org/csc/javascript/javascript_keycodes.htm 
+                    var status = 'approve';
+                    $.ajax({ 
+                        url: '/status', 
+                        type: 'POST', 
+                        data: status,
+                        success: function(response){ 
+                            $('#status').text(status) 
+                        } 
+                    });    
+                } else if (e.keyCode == 50) {
+                    var status = 'reject';
+                    $.ajax({ 
+                        url: '/status', 
+                        type: 'POST', 
+                        data: status,
+                        success: function(response){ 
+                            $('#status').text(status) 
+                        } 
+                    });    
+                }
+            });
         });
-
-		$(document).keyup(function(e) {
-			if (e.keyCode == 49) { // http://gcctech.org/csc/javascript/javascript_keycodes.htm 
-				var status = 'approve';
-                $.ajax({ 
-                    url: '/status', 
-                    type: 'POST', 
-                    data: status,
-                    success: function(response){ 
-                        $('#status').text(status) 
-                    } 
-                });    
-			} else if (e.keyCode == 50) {
-				var status = 'reject';
-                $.ajax({ 
-                    url: '/status', 
-                    type: 'POST', 
-                    data: status,
-                    success: function(response){ 
-                        $('#status').text(status) 
-                    } 
-                });    
-			}
-		});
-    });
-  </script>
+    </script>
+    
 </html>
