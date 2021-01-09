@@ -15,15 +15,15 @@
     <script>
         function ajaxEvent(){
             $.ajax({
-                        url: "{{ url_for ('get_img') }}",
-                        type: "GET",
-                        success: function(response) {
-                        response != 'finished' ? $("#myimg").attr('src', '/static/' + response) : $("#status").text('finished')
-                        },
-                        error: function(xhr) {
-                        // error
-                        }
-                    });
+                url: "{{ url_for ('get_img') }}",
+                type: "GET",
+                success: function(response) {
+                    response != 'finished' ? $("#myimg").attr('src', '/static/' + response) : $("#status").text('finished')
+                },
+                error: function(xhr) {
+                // error
+                }
+            });
         }
 
         $(document).ready(function() {

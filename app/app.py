@@ -30,7 +30,7 @@ def annotate():
 def get_img():
     global cnt
     cnt += 1
-    if cnt >= len(imgs):
+    if cnt > len(imgs):
         return 'finished'
     return imgs[cnt-1]
 
