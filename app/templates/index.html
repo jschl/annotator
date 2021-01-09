@@ -1,30 +1,7 @@
 <html>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <style>
-            body {
-                background-color: darkblue;
-            }
-
-            #imgdiv {
-                width: 480px;
-                height: 480px;
-                top: 50%;
-                left: 50%;
-                right: 50%;
-                position:fixed;
-                transform: translate(-50%, -50%); 
-            }
-
-            #status {
-                text-align: center;
-            }
-
-            div img {
-                display: block;
-                width: 100%;
-            }
-        </style>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='stylesheets/stylesheets.css') }}">
     </head>
     
     <body>
