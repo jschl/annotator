@@ -14,6 +14,8 @@
 
     <script>
         $(document).ready(function() {
+            
+            <!-- press right arrow key -->
             $(document).keyup(function(e){
                 if (e.keyCode == 39) {
                     $.ajax({
@@ -31,6 +33,7 @@
             });
 
             $(document).keyup(function(e) {
+                <!-- press 1 for approval -->
                 if (e.keyCode == 49) { // http://gcctech.org/csc/javascript/javascript_keycodes.htm 
                     var status = 'approve';
                     $.ajax({ 
@@ -41,6 +44,7 @@
                             $('#status').text(status) 
                         } 
                     });    
+                <!-- press 0 for disapproval -->
                 } else if (e.keyCode == 50) {
                     var status = 'reject';
                     $.ajax({ 
